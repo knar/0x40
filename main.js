@@ -5,7 +5,7 @@ const map = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 6, 6, 5, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 6, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0],
@@ -27,7 +27,7 @@ window.addEventListener('load', init)
 window.addEventListener('resize', onResize)
 
 function init() {
-	canvas.style.background = '#fff'
+	canvas.style.background = '#87cefa'
 
 	const img = new Image()
 	img.src = 'tilesheet.png'

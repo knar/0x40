@@ -1,4 +1,4 @@
-export const TILES = ['AIR', 'STONE', 'DIRT', 'GRASS', 'COAL', 'TRUNK', 'LEAVES']
+export const TILES = ['AIR', 'STONE', 'DIRT', 'GRASS', 'COAL', 'TRUNK', 'LEAVES', 'BALLOON']
 
 const tileSize = 4;
 
@@ -11,6 +11,7 @@ const spriteSheet = {
     COAL: [2, 1],
     TRUNK: [0, 2],
     LEAVES: [0, 1],
+	BALLOON: [1, 1],
 }
 
 export class SpriteSheet {
