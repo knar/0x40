@@ -17,7 +17,7 @@ function init() {
 	canvas.style.background = '#87cefa'
 
 	const img = new Image()
-	img.src = 'tilesheet.png'
+	img.src = 'tiles.png'
 	img.onload = () => {
 		spriteSheet = new SpriteSheet(img)
 		initGame()
@@ -41,7 +41,7 @@ function onResize() {
 	canvas.style.width = `${resolution * pixelRatio}px`
 	canvas.style.height = `${resolution * pixelRatio}px`
 
-	spriteSheet.drawTiles(context, gameState.tiles, 8, 8)
+	spriteSheet.drawTiles(context, gameState.tiles, 12, 12)
 }
 
 function onKeyDown(e) {

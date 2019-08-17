@@ -13,6 +13,7 @@ const tileSize = 4;
 const spriteSheet = {
     // [x, y]
 	[ TILES.AIR ]: [0, 0],
+	[ TILES.EDGE ]: [0, 0],
     [ TILES.STONE ]: [0, 1],
     [ TILES.DIRT ]: [0, 2],
 	[ TILES.BALLOON ]: [0, 3],
@@ -28,7 +29,7 @@ export class SpriteSheet {
     drawTiles(context, tiles, height, width) {
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
-                const tile = tiles[i * 8 + j];
+                const tile = tiles[i * width + j];
                 const [sx, sy] = spriteSheet[tile];
                 context.drawImage(this.elem, sx * tileSize, sy * tileSize, tileSize, tileSize, j * tileSize, i * tileSize, tileSize, tileSize);
             }
