@@ -1,17 +1,22 @@
-export const TILES = ['AIR', 'STONE', 'DIRT', 'GRASS', 'COAL', 'TRUNK', 'LEAVES', 'BALLOON']
+export const TILES = {
+	'AIR': 0,
+	'STONE': 1,
+	'DIRT': 2,
+	'BALLOON': 3,
+	'GOAL': 8,
+	'PLAYER': 9,
+}
 
 const tileSize = 4;
 
 const spriteSheet = {
     // [x, y]
-    AIR: [2, 2],
-    STONE: [2, 0],
-    DIRT: [0, 0],
-    GRASS: [1, 0],
-    COAL: [2, 1],
-    TRUNK: [0, 2],
-    LEAVES: [0, 1],
-	BALLOON: [1, 1],
+	[ TILES.AIR ]: [2, 2],
+    [ TILES.STONE ]: [2, 0],
+    [ TILES.DIRT ]: [0, 0],
+	[ TILES.BALLOON ]: [1, 1],
+    [ TILES.GOAL ]: [0, 1],
+	[ TILES.PLAYER ]: [1, 1],
 }
 
 export class SpriteSheet {
@@ -19,13 +24,10 @@ export class SpriteSheet {
         this.elem = elem
     }
 
-    drawTiles(context, tiles) {
-        const h = tiles.length;
-        const w = tiles[0].length;
-
-        for (let i = 0; i < h; i++) {
-            for (let j = 0; j < w; j++) {
-                const tile = TILES[tiles[i][j]];
+    drawTiles(context, tiles, height, width) {
+        for (let i = 0; i < height; i++) {
+            for (let j = 0; j < width; j++) {
+                const tile = tiles[i * 8 + j];
                 const [sx, sy] = spriteSheet[tile];
                 context.drawImage(this.elem, sx * tileSize, sy * tileSize, tileSize, tileSize, j * tileSize, i * tileSize, tileSize, tileSize);
             }
