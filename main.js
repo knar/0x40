@@ -38,7 +38,7 @@ function init() {
 }
 
 function onResize() {
-	const size = Math.min(window.innerWidth, window.innerHeight) * 0.5
+	const size = Math.min(window.innerWidth, window.innerHeight) * 0.8
 	
 	const pixelRatio = Math.round(size / 64)
 
