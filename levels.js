@@ -17,7 +17,7 @@ function addEdges(level, width, height) {
 	let l = [...rowOfEdges, ...rowOfEdges]
 	
 	for (let i = 0; i < height; i++) {
-		let row = level.slice(i * width, width)
+		let row = level.slice(i * width, (i + 1) * width)
 		l.push(9, 9, ...row, 9, 9)
 	}
 
