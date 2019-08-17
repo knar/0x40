@@ -14,11 +14,11 @@ const spriteSheet = {
     // [x, y]
 	[ TILES.AIR ]: [0, 0],
 	[ TILES.EDGE ]: [0, 0],
-    [ TILES.STONE ]: [0, 1],
-    [ TILES.DIRT ]: [0, 2],
-	[ TILES.BALLOON ]: [0, 3],
-    [ TILES.GOAL ]: [0, 4],
-	[ TILES.PLAYER ]: [0, 5],
+    [ TILES.STONE ]: [1, 0],
+    [ TILES.DIRT ]: [2, 0],
+	[ TILES.BALLOON ]: [3, 0],
+    [ TILES.GOAL ]: [4, 0],
+	[ TILES.PLAYER ]: [5, 0],
 }
 
 export class SpriteSheet {
@@ -26,10 +26,10 @@ export class SpriteSheet {
         this.elem = elem
     }
 
-    drawTiles(context, tiles, height, width) {
+    drawTiles(context, tiles, height, width, edges) {
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
-                const tile = tiles[i * width + j];
+                const tile = tiles[(i + edges) * (width + 2 * edges) + (j + edges)];
                 const [sx, sy] = spriteSheet[tile];
                 context.drawImage(this.elem, sx * tileSize, sy * tileSize, tileSize, tileSize, j * tileSize, i * tileSize, tileSize, tileSize);
             }

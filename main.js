@@ -8,6 +8,10 @@ const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 let spriteSheet
 let gameState
+let canMove = true
+let updateTimer
+
+let levelIndex = 0
 
 window.addEventListener('load', init)
 window.addEventListener('resize', onResize)
@@ -26,8 +30,12 @@ function init() {
 }
 
 function initGame() {
-	gameState = Game.newGame(levels[0])
+	gameState = Game.newGame(levels[levelIndex])
+}
 
+function levelUp() {
+	levelIndex = (levelIndex + 1) % levels.length
+	initGame()
 }
 
 function onResize() {
@@ -41,7 +49,13 @@ function onResize() {
 	canvas.style.width = `${resolution * pixelRatio}px`
 	canvas.style.height = `${resolution * pixelRatio}px`
 
-	spriteSheet.drawTiles(context, gameState.tiles, 12, 12)
+
+	const render = () => {
+		context.clearRect(0, 0, canvas.width, canvas.height)
+		spriteSheet.drawTiles(context, gameState.tiles, 8, 8, 2)
+		requestAnimationFrame(render)
+	}
+	render()
 }
 
 function onKeyDown(e) {
@@ -49,13 +63,34 @@ function onKeyDown(e) {
 		'ArrowUp': Game.jumpAction,
 		'ArrowLeft': Game.moveLeftAction,
 		'ArrowRight': Game.moveRightAction,
+		'r': (gameState) => initGame(),
+		'n': (gameState) => levelUp(),
 	}
 
 	const action = keyActions[e.key];
 
 	if (action) {
-		action(gameState)
+		if (!canMove) {
+			Game.updateAction(gameState)
+			clearInterval(updateTimer)
+		}
 
-		onResize()
+		action(gameState)
+		canMove = false
+	
+		if (gameState.won) {
+			levelUp();
+			return;
+		}
+		
+		updateTimer = setTimeout(() => {
+			Game.updateAction(gameState)
+			canMove = true
+
+			if (gameState.won) {
+				levelUp();
+				return;
+			}
+		}, 500)
 	}
 }
