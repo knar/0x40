@@ -3,20 +3,21 @@ export const TILES = {
 	'STONE': 1,
 	'DIRT': 2,
 	'BALLOON': 3,
-	'GOAL': 8,
-	'PLAYER': 9,
+	'GOAL': 7,
+	'PLAYER': 8,
+	'EDGE': 9,
 }
 
 const tileSize = 4;
 
 const spriteSheet = {
     // [x, y]
-	[ TILES.AIR ]: [2, 2],
-    [ TILES.STONE ]: [2, 0],
-    [ TILES.DIRT ]: [0, 0],
-	[ TILES.BALLOON ]: [1, 1],
-    [ TILES.GOAL ]: [0, 1],
-	[ TILES.PLAYER ]: [1, 1],
+	[ TILES.AIR ]: [0, 0],
+    [ TILES.STONE ]: [0, 1],
+    [ TILES.DIRT ]: [0, 2],
+	[ TILES.BALLOON ]: [0, 3],
+    [ TILES.GOAL ]: [0, 4],
+	[ TILES.PLAYER ]: [0, 5],
 }
 
 export class SpriteSheet {
