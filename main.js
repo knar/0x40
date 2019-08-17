@@ -1,28 +1,13 @@
 import { SpriteSheet } from './tiles.js'
-import * as Game from './game.js;
+import * as Game from './game.js'
+import { levels } from './levels.js'
 
-const map = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 6, 6, 5, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 6, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0],
-	[3, 3, 0, 5, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 0, 0],
-	[2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 2, 2, 3, 3],
-	[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-	[2, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2],
-	[2, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1],
-	[1, 4, 4, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-	[4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-	[1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1],
-]
+const resolution = 32
 
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 let spriteSheet
+let gameState
 
 window.addEventListener('load', init)
 window.addEventListener('resize', onResize)
@@ -35,22 +20,28 @@ function init() {
 	img.src = 'tilesheet.png'
 	img.onload = () => {
 		spriteSheet = new SpriteSheet(img)
+		initGame()
 		onResize()
 	}
+}
+
+function initGame() {
+	gameState = Game.newGame(levels[0])
+
 }
 
 function onResize() {
 	const size = Math.min(window.innerWidth, window.innerHeight) * 0.8
 	
-	const pixelRatio = Math.round(size / 64)
+	const pixelRatio = Math.round(size / resolution)
 
-	canvas.width = 64
-	canvas.height = 64
+	canvas.width = resolution
+	canvas.height = resolution
 
-	canvas.style.width = `${64 * pixelRatio}px`
-	canvas.style.height = `${64 * pixelRatio}px`
+	canvas.style.width = `${resolution * pixelRatio}px`
+	canvas.style.height = `${resolution * pixelRatio}px`
 
-	spriteSheet.drawTiles(context, map)
+	spriteSheet.drawTiles(context, gameState.tiles, 8, 8)
 }
 
 function onKeyDown(e) {
@@ -60,7 +51,7 @@ function onKeyDown(e) {
 		'ArrowRight': Game.moveRightAction,
 	}
 
-	const action = keyActions[e];
+	const action = keyActions[e.key];
 
 	if (action) {
 		action(gameState)
