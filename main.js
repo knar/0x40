@@ -46,7 +46,7 @@ function onResize() {
 
 function onKeyDown(e) {
 	const keyActions = {
-		'ArrowUp': null,
+		'ArrowUp': Game.jumpAction,
 		'ArrowLeft': Game.moveLeftAction,
 		'ArrowRight': Game.moveRightAction,
 	}

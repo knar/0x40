@@ -7,19 +7,36 @@ export function newGame(level) {
 	}
 }
 
+export function jumpAction(gameState) {
+	moveBy(gameState, TILES.PLAYER, -8, false)
+}
+
 export function moveLeftAction(gameState) {
-	moveBy(gameState, TILES.PLAYER, 1)
+	moveBy(gameState, TILES.PLAYER, -1, true)
 }
 
 export function moveRightAction(gameState) {
-	moveBy(gameState, TILES.PLAYER, -1)
+	moveBy(gameState, TILES.PLAYER, 1, true)
 }
 
-function moveBy(gameState, tileType, offset) {
+function moveBy(gameState, tileType, offset, push) {
 	const { tiles } = gameState
 
-	const index = tiles.indexOf(tileType)
+	const isFree = tile => tile === TILES.AIR || tile === TILES.EDGE
 
-	tiles[index] = TILES.AIR
-	tiles[index + offset] = tileType
+	tiles.forEach((tile, i) => {
+		if (tile === tileType) {
+			const current = tiles[i + offset]
+			const next = tiles[i + 2 * offset] 
+
+			if (push && !isFree(current) && isFree(next)) {
+				tiles[i] = TILES.AIR
+				tiles[i + offset] = tileType
+				tiles[i + 2 * offset] = current
+			} else if (isFree(current)) {
+				tiles[i] = TILES.AIR
+				tiles[i + offset] = tileType
+			}
+		}
+	})
 }
