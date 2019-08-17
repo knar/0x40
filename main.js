@@ -1,4 +1,5 @@
 import { SpriteSheet } from './tiles.js'
+import * as Game from './game.js;
 
 const map = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,6 +26,7 @@ let spriteSheet
 
 window.addEventListener('load', init)
 window.addEventListener('resize', onResize)
+window.addEventListener('keydown', onKeyDown)
 
 function init() {
 	canvas.style.background = '#87cefa'
@@ -49,4 +51,20 @@ function onResize() {
 	canvas.style.height = `${64 * pixelRatio}px`
 
 	spriteSheet.drawTiles(context, map)
+}
+
+function onKeyDown(e) {
+	const keyActions = {
+		'ArrowUp': null,
+		'ArrowLeft': Game.moveLeftAction,
+		'ArrowRight': Game.moveRightAction,
+	}
+
+	const action = keyActions[e];
+
+	if (action) {
+		action(gameState)
+
+		onResize()
+	}
 }
